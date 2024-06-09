@@ -1,1 +1,26 @@
-/* Add styles here */
+body {
+    font-family: sans-serif;
+    background-color: darkgreen;
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    color: white;
+    font-size: 25px;
+}
+
+#barTop {
+    background-color: black;
+    height: 8vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+#mainContent {
+    background-color: antiquewhite;
+    margin-top: 5vh;
+    display: flex;
+    justify-content: center;
+}
