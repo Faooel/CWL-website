@@ -71,7 +71,7 @@ const teamsEastCWL = [
 },
 {
     nom: "Brooklyn Nets",
-    image: "image/Brooklyn.png"
+    image: "image/Nets.png"
 },
 {
     nom: "Charlotte Hornets",
