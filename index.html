@@ -10,12 +10,22 @@
 <body>
   <div id="barTop"><p id="logo">LOGO</p></div>
   <div id="mainContent">
-    <div><h1>Les pronos des GM</h1></div>
+    <h1>Les pronos des GM</h1>
     <div>
-      <button id="showTeamsButton">Afficher les équipes</button>
-      <div id="selectionContainer"></div>
-      <button id="generateTablesButton">Générer les tableaux</button>
-      <button id="captureTablesButton">Capturer les tableaux</button> <!-- Nouveau bouton pour capturer les tableaux -->
+      <div id="selectionContainer">
+        <div id="eastContainer">
+          <h2>Conférence Est</h2>
+          <div id="eastSelection"></div> <!-- Nouveau div pour la sélection de la conférence Est -->
+        </div> 
+        <div id="westContainer">
+          <h2>Conférence Ouest</h2>
+          <div id="westSelection"></div> <!-- Nouveau div pour la sélection de la conférence Est -->
+        </div> <!-- Nouveau div pour la sélection de la conférence Ouest -->
+      </div>
+      <div id="buttonBot">
+        <button id="generateTablesButton">Générer les tableaux</button>
+        <button id="captureTablesButton">Capturer les tableaux</button> <!-- Nouveau bouton pour capturer les tableaux -->
+      </div>
       <div id="teamsContainer">
         <table id="eastTeamsTable">
           <thead>
@@ -54,32 +64,40 @@
       return options;
     }
 
-    document.getElementById('showTeamsButton').addEventListener('click', function() {
-      const selectionContainer = document.getElementById('selectionContainer');
-      selectionContainer.innerHTML = '';
+    function showTeams() {
+      const eastSelection = document.getElementById('eastSelection');
+      const westSelection = document.getElementById('westSelection');
+      eastSelection.innerHTML = '';
+      westSelection.innerHTML = '';
 
-      const eastHeader = document.createElement('h2');
-      eastHeader.textContent = 'Conférence Est';
-      selectionContainer.appendChild(eastHeader);
+      // const eastHeader = document.createElement('div');
+      // eastHeader.textContent = 'Conférence Est :';
+      // eastSelection.appendChild(eastHeader);
 
       for (let i = 0; i < 15; i++) {
+        const placeText = document.createTextNode(`${i + 1}: `);
+        eastSelection.appendChild(placeText);
+
         const select = document.createElement('select');
         select.id = `eastTeam${i}`;
         select.classList.add('eastSelect');
         select.innerHTML = createOptions(teamsEastCWL);
-        selectionContainer.appendChild(select);
+        eastSelection.appendChild(select);
       }
 
-      const westHeader = document.createElement('h2');
-      westHeader.textContent = 'Conférence Ouest';
-      selectionContainer.appendChild(westHeader);
+      // const westHeader = document.createElement('div');
+      // westHeader.textContent = 'Conférence Ouest :';
+      // westSelection.appendChild(westHeader);
 
       for (let i = 0; i < 15; i++) {
+        const placeText = document.createTextNode(`${i + 1}: `);
+        westSelection.appendChild(placeText);
+
         const select = document.createElement('select');
         select.id = `westTeam${i}`;
         select.classList.add('westSelect');
         select.innerHTML = createOptions(teamsWestCWL);
-        selectionContainer.appendChild(select);
+        westSelection.appendChild(select);
       }
 
       const eastSelects = document.querySelectorAll('.eastSelect');
@@ -92,7 +110,9 @@
       westSelects.forEach(select => {
         select.addEventListener('change', updateWestOptions);
       });
-    });
+    }
+    // Appeler la fonction directement pour afficher les équipes au chargement de la page
+    showTeams();
 
     function updateEastOptions() {
       const selectedValues = [...document.querySelectorAll('.eastSelect')].map(select => select.value);
@@ -121,7 +141,7 @@
         placeCell.textContent = index + 1;
         nameCell.textContent = team ? team.nom : 'N/A';
         photo.src = team ? team.image : '';
-        photo.alt = team ? team.nom : 'No photo';
+        photo.alt = team ? team.nom : '';
         photo.width = 50;
 
         photoCell.appendChild(photo);
@@ -167,5 +187,10 @@
       });
     });
   </script>
+  <script>
+    console.log("  \\\\ \n  (o> \n \\\\_//) \n  \\_/_) \n  _|_", "\n Bonjour Captain Sanders");
+    console.log(" _\n<(.)__\n (___)/");
+  </script>
+  
 </body>
 </html>

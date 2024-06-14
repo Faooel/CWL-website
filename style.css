@@ -24,8 +24,16 @@ body {
     margin-top: 5vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+}
+
+#showTeamsButton {
+    margin-left: 8%;
+}
+
+#buttonBot {
+    display: flex;
+    justify-content: space-evenly;
 }
 
 button {
@@ -41,8 +49,30 @@ button:hover {
     background-color: #45a049;
 }
 
-#selectionContainer {
-    margin: 20px 0;
+#eastContainer {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+#westContainer {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+#eastSelection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#westSelection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 #teamsContainer {
