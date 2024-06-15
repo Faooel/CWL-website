@@ -12,19 +12,19 @@
   <div id="mainContent">
     <h1>Les pronos des GM</h1>
     <div>
-      <div id="selectionContainer">
+      <div id="selectionContainer"
         <div id="eastContainer">
           <h2>Conférence Est</h2>
-          <div id="eastSelection"></div> <!-- Nouveau div pour la sélection de la conférence Est -->
+          <div id="eastSelection"></div> <!-- div pour la sélection de la conférence Est -->
         </div> 
         <div id="westContainer">
           <h2>Conférence Ouest</h2>
-          <div id="westSelection"></div> <!-- Nouveau div pour la sélection de la conférence Est -->
-        </div> <!-- Nouveau div pour la sélection de la conférence Ouest -->
+          <div id="westSelection"></div> <!-- div pour la sélection de la conférence Est -->
+        </div> 
       </div>
       <div id="buttonBot">
         <button id="generateTablesButton">Générer les tableaux</button>
-        <button id="captureTablesButton">Capturer les tableaux</button> <!-- Nouveau bouton pour capturer les tableaux -->
+        <button id="captureTablesButton">Capturer les tableaux</button> 
       </div>
       <div id="teamsContainer">
         <table id="eastTeamsTable">
@@ -56,6 +56,8 @@
   </div>
   <script src="teamsCWL.js"></script>
   <script>
+
+    // Fonction pour les options et selectioner les équipes
     function createOptions(teams) {
       let options = '<option value="">Sélectionner une équipe</option>';
       teams.forEach(team => {
@@ -64,16 +66,14 @@
       return options;
     }
 
+    // Fonction pour afficher les équipes
     function showTeams() {
       const eastSelection = document.getElementById('eastSelection');
       const westSelection = document.getElementById('westSelection');
       eastSelection.innerHTML = '';
       westSelection.innerHTML = '';
 
-      // const eastHeader = document.createElement('div');
-      // eastHeader.textContent = 'Conférence Est :';
-      // eastSelection.appendChild(eastHeader);
-
+      //Boucle pour afficher les équipes de la conférence Est et Ouest
       for (let i = 0; i < 15; i++) {
         const placeText = document.createTextNode(`${i + 1}: `);
         eastSelection.appendChild(placeText);
@@ -84,10 +84,6 @@
         select.innerHTML = createOptions(teamsEastCWL);
         eastSelection.appendChild(select);
       }
-
-      // const westHeader = document.createElement('div');
-      // westHeader.textContent = 'Conférence Ouest :';
-      // westSelection.appendChild(westHeader);
 
       for (let i = 0; i < 15; i++) {
         const placeText = document.createTextNode(`${i + 1}: `);
@@ -114,6 +110,7 @@
     // Appeler la fonction directement pour afficher les équipes au chargement de la page
     showTeams();
 
+    // Fonction pour mettre à jour les options de la conférence Est
     function updateEastOptions() {
       const selectedValues = [...document.querySelectorAll('.eastSelect')].map(select => select.value);
       document.querySelectorAll('.eastSelect option').forEach(option => {
@@ -130,6 +127,7 @@
       });
     }
 
+    // Fonction pour créer les lignes des tableaux
     function createTeamRows(teams, tableBody) {
       teams.forEach((team, index) => {
         const row = document.createElement('tr');
@@ -152,6 +150,7 @@
       });
     }
 
+    // Ajouter un écouteur d'événement pour le bouton de génération des tableaux
     document.getElementById('generateTablesButton').addEventListener('click', function() {
       const eastTeamsTableBody = document.querySelector('#eastTeamsTable tbody');
       const westTeamsTableBody = document.querySelector('#westTeamsTable tbody');
@@ -177,6 +176,7 @@
       createTeamRows(selectedWestTeams, westTeamsTableBody);
     });
 
+    // Fonction pour capturer les tableaux
     document.getElementById('captureTablesButton').addEventListener('click', function() {
       const tablesContainer = document.getElementById('teamsContainer');
       html2canvas(tablesContainer).then(canvas => {
