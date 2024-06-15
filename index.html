@@ -8,11 +8,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-  <div id="barTop"><p id="logo">LOGO</p></div>
+  <div id="barTop">
+    <p id="logo">LOGO</p>
+  </div>
+
   <div id="mainContent">
     <h1>Les pronos des GM</h1>
     <div>
-      <div id="selectionContainer"
+      <div id="selectionContainer">
         <div id="eastContainer">
           <h2>Conférence Est</h2>
           <div id="eastSelection"></div> <!-- div pour la sélection de la conférence Est -->
@@ -22,10 +25,12 @@
           <div id="westSelection"></div> <!-- div pour la sélection de la conférence Est -->
         </div> 
       </div>
+
       <div id="buttonBot">
         <button id="generateTablesButton">Générer les tableaux</button>
         <button id="captureTablesButton">Capturer les tableaux</button> 
       </div>
+
       <div id="teamsContainer">
         <table id="eastTeamsTable">
           <thead>
@@ -73,29 +78,40 @@
       eastSelection.innerHTML = '';
       westSelection.innerHTML = '';
 
-      //Boucle pour afficher les équipes de la conférence Est et Ouest
-      for (let i = 0; i < 15; i++) {
-        const placeText = document.createTextNode(`${i + 1}: `);
-        eastSelection.appendChild(placeText);
+      //Boucle pour créer les options de sélection
+  //Boucle pour créer les options de sélection
+  for (let i = 0; i < 15; i++) {
+    const selectionContainer = document.createElement('div');
+    selectionContainer.className = 'selection-container';
 
-        const select = document.createElement('select');
-        select.id = `eastTeam${i}`;
-        select.classList.add('eastSelect');
-        select.innerHTML = createOptions(teamsEastCWL);
-        eastSelection.appendChild(select);
-      }
+    const placeText = document.createTextNode(`${i + 1}: `);
+    selectionContainer.appendChild(placeText);
 
-      for (let i = 0; i < 15; i++) {
-        const placeText = document.createTextNode(`${i + 1}: `);
-        westSelection.appendChild(placeText);
+    const select = document.createElement('select');
+    select.id = `eastTeam${i}`;
+    select.classList.add('eastSelect');
+    select.innerHTML = createOptions(teamsEastCWL);
+    selectionContainer.appendChild(select);
 
-        const select = document.createElement('select');
-        select.id = `westTeam${i}`;
-        select.classList.add('westSelect');
-        select.innerHTML = createOptions(teamsWestCWL);
-        westSelection.appendChild(select);
-      }
+    eastSelection.appendChild(selectionContainer);
+  }
 
+        //Boucle pour créer les options de sélection
+  for (let i = 0; i < 15; i++) {
+    const selectionContainer = document.createElement('div');
+    selectionContainer.className = 'selection-container';
+
+    const placeText = document.createTextNode(`${i + 1}: `);
+    selectionContainer.appendChild(placeText);
+
+    const select = document.createElement('select');
+    select.id = `westTeam${i}`;
+    select.classList.add('westSelect');
+    select.innerHTML = createOptions(teamsWestCWL);
+    selectionContainer.appendChild(select);
+
+    westSelection.appendChild(selectionContainer);
+  }
       const eastSelects = document.querySelectorAll('.eastSelect');
       const westSelects = document.querySelectorAll('.westSelect');
 
