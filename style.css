@@ -1,0 +1,112 @@
+body {
+    font-family: sans-serif;
+    background-color: darkgreen;
+    margin: 0;
+    padding: 0;
+}
+
+#logo {
+    color: white;
+    font-size: 25px;
+}
+
+#barTop {
+    background-color: black;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#mainContent {
+    background-color: antiquewhite;
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#showTeamsButton {
+    margin-left: 8%;
+}
+
+#buttonBot {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#eastContainer {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+#westContainer {
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+#eastSelection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#westSelection {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+#teamsContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+
+table {
+    width: 45%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+td img {
+    max-width: 50px;
+    height: auto;
+}
+
+select {
+    margin: 5px;
+    padding: 5px;
+}

@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CWL Website</title>
+  <link href='./style.css' rel='stylesheet'>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <div id="barTop"><p id="logo">LOGO</p></div>
+  <div id="mainContent">
+    <h1>Les pronos des GM</h1>
+    <div>
+      <div id="selectionContainer">
+        <div id="eastContainer">
+          <h2>Conférence Est</h2>
+          <div id="eastSelection"></div> <!-- Nouveau div pour la sélection de la conférence Est -->
+        </div> 
+        <div id="westContainer">
+          <h2>Conférence Ouest</h2>
+          <div id="westSelection"></div> <!-- Nouveau div pour la sélection de la conférence Est -->
+        </div> <!-- Nouveau div pour la sélection de la conférence Ouest -->
+      </div>
+      <div id="buttonBot">
+        <button id="generateTablesButton">Générer les tableaux</button>
+        <button id="captureTablesButton">Capturer les tableaux</button> <!-- Nouveau bouton pour capturer les tableaux -->
+      </div>
+      <div id="teamsContainer">
+        <table id="eastTeamsTable">
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Équipe</th>
+              <th>Photo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Les équipes de la conférence Est seront ajoutées ici -->
+          </tbody>
+        </table>
+        <table id="westTeamsTable">
+          <thead>
+            <tr>
+              <th>Place</th>
+              <th>Équipe</th>
+              <th>Photo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Les équipes de la conférence Ouest seront ajoutées ici -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="teamsCWL.js"></script>
+  <script>
+    function createOptions(teams) {
+      let options = '<option value="">Sélectionner une équipe</option>';
+      teams.forEach(team => {
+        options += `<option value="${team.nom}">${team.nom}</option>`;
+      });
+      return options;
+    }
+
+    function showTeams() {
+      const eastSelection = document.getElementById('eastSelection');
+      const westSelection = document.getElementById('westSelection');
+      eastSelection.innerHTML = '';
+      westSelection.innerHTML = '';
+
+      // const eastHeader = document.createElement('div');
+      // eastHeader.textContent = 'Conférence Est :';
+      // eastSelection.appendChild(eastHeader);
+
+      for (let i = 0; i < 15; i++) {
+        const placeText = document.createTextNode(`${i + 1}: `);
+        eastSelection.appendChild(placeText);
+
+        const select = document.createElement('select');
+        select.id = `eastTeam${i}`;
+        select.classList.add('eastSelect');
+        select.innerHTML = createOptions(teamsEastCWL);
+        eastSelection.appendChild(select);
+      }
+
+      // const westHeader = document.createElement('div');
+      // westHeader.textContent = 'Conférence Ouest :';
+      // westSelection.appendChild(westHeader);
+
+      for (let i = 0; i < 15; i++) {
+        const placeText = document.createTextNode(`${i + 1}: `);
+        westSelection.appendChild(placeText);
+
+        const select = document.createElement('select');
+        select.id = `westTeam${i}`;
+        select.classList.add('westSelect');
+        select.innerHTML = createOptions(teamsWestCWL);
+        westSelection.appendChild(select);
+      }
+
+      const eastSelects = document.querySelectorAll('.eastSelect');
+      const westSelects = document.querySelectorAll('.westSelect');
+
+      eastSelects.forEach(select => {
+        select.addEventListener('change', updateEastOptions);
+      });
+
+      westSelects.forEach(select => {
+        select.addEventListener('change', updateWestOptions);
+      });
+    }
+    // Appeler la fonction directement pour afficher les équipes au chargement de la page
+    showTeams();
+
+    function updateEastOptions() {
+      const selectedValues = [...document.querySelectorAll('.eastSelect')].map(select => select.value);
+      document.querySelectorAll('.eastSelect option').forEach(option => {
+        if (option.value === '') return;
+        option.disabled = selectedValues.includes(option.value);
+      });
+    }
+
+    function updateWestOptions() {
+      const selectedValues = [...document.querySelectorAll('.westSelect')].map(select => select.value);
+      document.querySelectorAll('.westSelect option').forEach(option => {
+        if (option.value === '') return;
+        option.disabled = selectedValues.includes(option.value);
+      });
+    }
+
+    function createTeamRows(teams, tableBody) {
+      teams.forEach((team, index) => {
+        const row = document.createElement('tr');
+        const placeCell = document.createElement('td');
+        const nameCell = document.createElement('td');
+        const photoCell = document.createElement('td');
+        const photo = document.createElement('img');
+
+        placeCell.textContent = index + 1;
+        nameCell.textContent = team ? team.nom : 'N/A';
+        photo.src = team ? team.image : '';
+        photo.alt = team ? team.nom : '';
+        photo.width = 50;
+
+        photoCell.appendChild(photo);
+        row.appendChild(placeCell);
+        row.appendChild(nameCell);
+        row.appendChild(photoCell);
+        tableBody.appendChild(row);
+      });
+    }
+
+    document.getElementById('generateTablesButton').addEventListener('click', function() {
+      const eastTeamsTableBody = document.querySelector('#eastTeamsTable tbody');
+      const westTeamsTableBody = document.querySelector('#westTeamsTable tbody');
+
+      eastTeamsTableBody.innerHTML = '';
+      westTeamsTableBody.innerHTML = '';
+
+      const selectedEastTeams = [];
+      const selectedWestTeams = [];
+
+      for (let i = 0; i < 15; i++) {
+        const eastTeamName = document.getElementById(`eastTeam${i}`).value;
+        const westTeamName = document.getElementById(`westTeam${i}`).value;
+
+        const eastTeam = teamsEastCWL.find(team => team.nom === eastTeamName);
+        const westTeam = teamsWestCWL.find(team => team.nom === westTeamName);
+
+        selectedEastTeams.push(eastTeam);
+        selectedWestTeams.push(westTeam);
+      }
+
+      createTeamRows(selectedEastTeams, eastTeamsTableBody);
+      createTeamRows(selectedWestTeams, westTeamsTableBody);
+    });
+
+    document.getElementById('captureTablesButton').addEventListener('click', function() {
+      const tablesContainer = document.getElementById('teamsContainer');
+      html2canvas(tablesContainer).then(canvas => {
+        const link = document.createElement('a');
+        link.href = canvas.toDataURL('image/png');
+        link.download = 'tables.png';
+        link.click();
+      });
+    });
+  </script>
+  <script>
+    console.log("  \\\\ \n  (o> \n \\\\_//) \n  \\_/_) \n  _|_", "\n Bonjour Captain Sanders");
+    console.log(" _\n<(.)__\n (___)/");
+  </script>
+  
+</body>
+</html>
