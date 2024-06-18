@@ -82,7 +82,6 @@
       eastSelection.innerHTML = '';
       westSelection.innerHTML = '';
 
-      //Boucle pour créer les options de sélection
   //Boucle pour créer les options de sélection
   for (let i = 0; i < 15; i++) {
     const selectionContainer = document.createElement('div');
@@ -149,27 +148,37 @@
 
     // Fonction pour créer les lignes des tableaux
     function createTeamRows(teams, tableBody) {
-      teams.forEach((team, index) => {
-        const row = document.createElement('tr');
-        const placeCell = document.createElement('td');
-        const nameCell = document.createElement('td');
-        const photoCell = document.createElement('td');
-        const photo = document.createElement('img');
+  teams.forEach((team, index) => {
+    console.log('team')
+    const row = document.createElement('tr');
 
-        placeCell.textContent = index + 1;
-        nameCell.textContent = team ? team.nom : 'N/A';
-        photo.src = team ? team.image : '';
-        photo.alt = team ? team.nom : '';
-        photo.width = 50;
-
-        photoCell.appendChild(photo);
-        row.appendChild(placeCell);
-        row.appendChild(nameCell);
-        row.appendChild(photoCell);
-        tableBody.appendChild(row);
-      });
+    // Appliquer les couleurs en fonction de la place
+    if (index < 6) {
+      row.style.backgroundColor = '#D6EAF8'; 
+    } else if (index < 10) {
+      row.style.backgroundColor = '#FADBD8'; 
+    } else {
+      row.style.backgroundColor = '#D3D3D3'; 
     }
 
+    const placeCell = document.createElement('td');
+    const nameCell = document.createElement('td');
+    const photoCell = document.createElement('td');
+    const photo = document.createElement('img');
+
+    placeCell.textContent = index + 1;
+    nameCell.textContent = team ? team.nom : 'N/A';
+    photo.src = team ? team.image : '';
+    photo.alt = team ? team.nom : '';
+    photo.width = 50;
+
+    photoCell.appendChild(photo);
+    row.appendChild(placeCell);
+    row.appendChild(nameCell);
+    row.appendChild(photoCell);
+    tableBody.appendChild(row);
+  });
+}
     // Ajouter un écouteur d'événement pour le bouton de génération des tableaux
     document.getElementById('generateTablesButton').addEventListener('click', function() {
       const eastTeamsTableBody = document.querySelector('#eastTeamsTable tbody');
