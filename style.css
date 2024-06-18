@@ -6,12 +6,13 @@ body {
 }
 
 #logo {
-    color: white;
-    font-size: 25px;
+    border: black 1px solid;
+    width: 3vw;
+    border-radius: 50%;
+    object-fit: contain;
 }
 
 #barTop {
-    background-color: black;
     height: 8vh;
     display: flex;
     justify-content: center;
@@ -20,7 +21,6 @@ body {
 
 #mainContent {
     background-color: antiquewhite;
-    margin-top: 5vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,7 +85,6 @@ table {
     border-collapse: collapse;
     margin-bottom: 20px;
     background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 table, th, td {

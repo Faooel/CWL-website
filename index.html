@@ -6,13 +6,13 @@
   <title>CWL Website</title>
   <link href='./style.css' rel='stylesheet'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <audio id="captain" src="Chicken - Sound Effect  ProSounds.mp3" preload="auto"></audio>
 </head>
 <body>
-  <div id="barTop">
-    <p id="logo">LOGO</p>
-  </div>
-
   <div id="mainContent">
+    <div id="barTop">
+      <img id="logo" src="./image/lmXE28_8_400x400.jpg"> 
+    </div>
     <h1>Les pronos des GM</h1>
     <div>
       <div id="selectionContainer">
@@ -61,6 +61,10 @@
   </div>
   <script src="teamsCWL.js"></script>
   <script>
+
+  document.getElementById('generateTablesButton').addEventListener('click', function() {
+    document.getElementById('captain').play();
+  });
 
     // Fonction pour les options et selectioner les équipes
     function createOptions(teams) {
