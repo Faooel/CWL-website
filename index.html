@@ -6,6 +6,7 @@
   <title>CWL Website</title>
   <link href='./style.css' rel='stylesheet'>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.1/xlsx.full.min.js"></script>
   <audio id="captain" src="Chicken - Sound Effect  ProSounds.mp3" preload="auto"></audio>
 </head>
 <body>
@@ -29,6 +30,7 @@
       <div id="buttonBot">
         <button id="generateTablesButton">Générer les tableaux</button>
         <button id="captureTablesButton">Capturer les tableaux</button> 
+        <button id="exportExcelButton">Exporter vers Excel</button>
       </div>
 
       <div id="teamsContainer">
@@ -61,12 +63,10 @@
   </div>
   <script src="teamsCWL.js"></script>
   <script>
+    document.getElementById('generateTablesButton').addEventListener('click', function() {
+      document.getElementById('captain').play();
+    });
 
-  document.getElementById('generateTablesButton').addEventListener('click', function() {
-    document.getElementById('captain').play();
-  });
-
-    // Fonction pour les options et selectioner les équipes
     function createOptions(teams) {
       let options = '<option value="">Sélectionner une équipe</option>';
       teams.forEach(team => {
@@ -75,46 +75,44 @@
       return options;
     }
 
-    // Fonction pour afficher les équipes
     function showTeams() {
       const eastSelection = document.getElementById('eastSelection');
       const westSelection = document.getElementById('westSelection');
       eastSelection.innerHTML = '';
       westSelection.innerHTML = '';
 
-  //Boucle pour créer les options de sélection
-  for (let i = 0; i < 15; i++) {
-    const selectionContainer = document.createElement('div');
-    selectionContainer.className = 'selection-container';
+      for (let i = 0; i < 15; i++) {
+        const selectionContainer = document.createElement('div');
+        selectionContainer.className = 'selection-container';
 
-    const placeText = document.createTextNode(`${i + 1}: `);
-    selectionContainer.appendChild(placeText);
+        const placeText = document.createTextNode(`${i + 1}: `);
+        selectionContainer.appendChild(placeText);
 
-    const select = document.createElement('select');
-    select.id = `eastTeam${i}`;
-    select.classList.add('eastSelect');
-    select.innerHTML = createOptions(teamsEastCWL);
-    selectionContainer.appendChild(select);
+        const select = document.createElement('select');
+        select.id = `eastTeam${i}`;
+        select.classList.add('eastSelect');
+        select.innerHTML = createOptions(teamsEastCWL);
+        selectionContainer.appendChild(select);
 
-    eastSelection.appendChild(selectionContainer);
-  }
+        eastSelection.appendChild(selectionContainer);
+      }
 
-        //Boucle pour créer les options de sélection
-  for (let i = 0; i < 15; i++) {
-    const selectionContainer = document.createElement('div');
-    selectionContainer.className = 'selection-container';
+      for (let i = 0; i < 15; i++) {
+        const selectionContainer = document.createElement('div');
+        selectionContainer.className = 'selection-container';
 
-    const placeText = document.createTextNode(`${i + 1}: `);
-    selectionContainer.appendChild(placeText);
+        const placeText = document.createTextNode(`${i + 1}: `);
+        selectionContainer.appendChild(placeText);
 
-    const select = document.createElement('select');
-    select.id = `westTeam${i}`;
-    select.classList.add('westSelect');
-    select.innerHTML = createOptions(teamsWestCWL);
-    selectionContainer.appendChild(select);
+        const select = document.createElement('select');
+        select.id = `westTeam${i}`;
+        select.classList.add('westSelect');
+        select.innerHTML = createOptions(teamsWestCWL);
+        selectionContainer.appendChild(select);
 
-    westSelection.appendChild(selectionContainer);
-  }
+        westSelection.appendChild(selectionContainer);
+      }
+
       const eastSelects = document.querySelectorAll('.eastSelect');
       const westSelects = document.querySelectorAll('.westSelect');
 
@@ -126,10 +124,9 @@
         select.addEventListener('change', updateWestOptions);
       });
     }
-    // Appeler la fonction directement pour afficher les équipes au chargement de la page
+
     showTeams();
 
-    // Fonction pour mettre à jour les options de la conférence Est
     function updateEastOptions() {
       const selectedValues = [...document.querySelectorAll('.eastSelect')].map(select => select.value);
       document.querySelectorAll('.eastSelect option').forEach(option => {
@@ -146,40 +143,37 @@
       });
     }
 
-    // Fonction pour créer les lignes des tableaux
     function createTeamRows(teams, tableBody) {
-  teams.forEach((team, index) => {
-    console.log('team')
-    const row = document.createElement('tr');
+      teams.forEach((team, index) => {
+        const row = document.createElement('tr');
 
-    // Appliquer les couleurs en fonction de la place
-    if (index < 6) {
-      row.style.backgroundColor = '#D6EAF8'; 
-    } else if (index < 10) {
-      row.style.backgroundColor = '#FADBD8'; 
-    } else {
-      row.style.backgroundColor = '#D3D3D3'; 
+        if (index < 6) {
+          row.style.backgroundColor = '#D6EAF8';
+        } else if (index < 10) {
+          row.style.backgroundColor = '#FADBD8';
+        } else {
+          row.style.backgroundColor = '#D3D3D3';
+        }
+
+        const placeCell = document.createElement('td');
+        const nameCell = document.createElement('td');
+        const photoCell = document.createElement('td');
+        const photo = document.createElement('img');
+
+        placeCell.textContent = index + 1;
+        nameCell.textContent = team ? team.nom : 'N/A';
+        photo.src = team ? team.image : '';
+        photo.alt = team ? team.nom : '';
+        photo.width = 50;
+
+        photoCell.appendChild(photo);
+        row.appendChild(placeCell);
+        row.appendChild(nameCell);
+        row.appendChild(photoCell);
+        tableBody.appendChild(row);
+      });
     }
 
-    const placeCell = document.createElement('td');
-    const nameCell = document.createElement('td');
-    const photoCell = document.createElement('td');
-    const photo = document.createElement('img');
-
-    placeCell.textContent = index + 1;
-    nameCell.textContent = team ? team.nom : 'N/A';
-    photo.src = team ? team.image : '';
-    photo.alt = team ? team.nom : '';
-    photo.width = 50;
-
-    photoCell.appendChild(photo);
-    row.appendChild(placeCell);
-    row.appendChild(nameCell);
-    row.appendChild(photoCell);
-    tableBody.appendChild(row);
-  });
-}
-    // Ajouter un écouteur d'événement pour le bouton de génération des tableaux
     document.getElementById('generateTablesButton').addEventListener('click', function() {
       const eastTeamsTableBody = document.querySelector('#eastTeamsTable tbody');
       const westTeamsTableBody = document.querySelector('#westTeamsTable tbody');
@@ -205,7 +199,6 @@
       createTeamRows(selectedWestTeams, westTeamsTableBody);
     });
 
-    // Fonction pour capturer les tableaux
     document.getElementById('captureTablesButton').addEventListener('click', function() {
       const tablesContainer = document.getElementById('teamsContainer');
       html2canvas(tablesContainer).then(canvas => {
@@ -215,11 +208,24 @@
         link.click();
       });
     });
+
+    document.getElementById('exportExcelButton').addEventListener('click', function() {
+      const eastTeamsTable = document.getElementById('eastTeamsTable');
+      const westTeamsTable = document.getElementById('westTeamsTable');
+
+      const workbook = XLSX.utils.book_new();
+      const eastSheet = XLSX.utils.table_to_sheet(eastTeamsTable);
+      const westSheet = XLSX.utils.table_to_sheet(westTeamsTable);
+
+      XLSX.utils.book_append_sheet(workbook, eastSheet, 'Conférence Est');
+      XLSX.utils.book_append_sheet(workbook, westSheet, 'Conférence Ouest');
+
+      XLSX.writeFile(workbook, 'teams.xlsx');
+    });
   </script>
   <script>
     console.log("  \\\\ \n  (o> \n \\\\_//) \n  \\_/_) \n  _|_", "\n Bonjour Captain Sanders");
     console.log(" _\n<(.)__\n (___)/");
   </script>
-  
 </body>
 </html>
