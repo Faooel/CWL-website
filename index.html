@@ -15,7 +15,6 @@
       <img id="logo" src="./image/lmXE28_8_400x400.jpg"> 
     </div>
     <h1>Les pronos des GM</h1>
-    <input type="text" id="gmName" placeholder="Ton prénom">
     <div>
       <div id="selectionContainer">
         <div id="eastContainer">
@@ -31,7 +30,7 @@
       <div id="buttonBot">
         <button id="generateTablesButton">Générer les tableaux</button>
         <button id="captureTablesButton">Capturer les tableaux</button> 
-        <button id="submitVotesButton">Soumettre le vote</button>
+        <button id="exportExcelButton">Exporter vers Excel</button>
       </div>
 
       <div id="teamsContainer">
@@ -208,53 +207,6 @@
         link.download = 'tables.png';
         link.click();
       });
-    });
-
-    // Ajouter l'évènement pour le bouton "Soumettre le vote"
-    document.getElementById('submitVotesButton').addEventListener('click', async function() {
-      const gmName = document.getElementById('gmName').value;
-      if (!gmName) {
-          alert('Please enter the GM name.');
-          return;
-      }
-
-      // Collecter les données de votes à envoyer
-      const eastVotes = [];
-      const westVotes = [];
-
-      for (let i = 0; i < 15; i++) {
-        const eastTeamName = document.getElementById(`eastTeam${i}`).value;
-        const westTeamName = document.getElementById(`westTeam${i}`).value;
-        eastVotes.push(eastTeamName);
-        westVotes.push(westTeamName);
-      }
-
-      const votesData = {
-         gmName: gmName,
-         eastVotes: eastVotes,
-         westVotes: westVotes,
-      };
-
-      // Envoyer les données à votre serveur (remplacer l'URL par celle de votre déploiement Vercel)
-      try {
-         const response = await fetch('https://vercel.com/faooels-projects/cwl-back-end', {
-            method: 'POST',
-            headers: {
-               'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(votesData)
-         });
-
-         if (response.ok) {
-            alert('Votes submitted successfully!');
-         } else {
-            const errorData = await response.json();
-            alert('Failed to submit votes: ' + errorData.error);
-         }
-      } catch (error) {
-         console.error('Error:', error);
-         alert('Error submitting votes. Please try again.');
-      }
     });
 
     document.getElementById('exportExcelButton').addEventListener('click', function() {
