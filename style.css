@@ -1,8 +1,25 @@
 body {
     font-family: sans-serif;
-    background-color: darkgreen;
+    background-color: #132b4f;
     margin: 0;
     padding: 0;
+}
+
+#barTop {
+    background-color: #d3d3d3;
+    height: 8vh;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+#navbBar {
+    width: 35px;
+    height: 5px;
+    background-color: black;
+    margin: 6px 0;
+    margin-left: 1vw;
 }
 
 #logo {
@@ -10,20 +27,44 @@ body {
     width: 3vw;
     border-radius: 50%;
     object-fit: contain;
+    margin-right: 1vw;
 }
 
-#barTop {
-    height: 8vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+h2 {
+    color: #fbffdf
 }
+
+.selection-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; /* Espacement entre les sélections */
+  }
+  
+  .place-text {
+    color: #fbffdf; /* Couleur des chiffres */
+    margin-right: 8px; /* Espacement entre le numéro et le select */
+    font-weight: bold; /* Rendre les chiffres en gras (optionnel) */
+  }
 
 #mainContent {
-    background-color: antiquewhite;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+#titlePage {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2vh;
+    margin-top: 2vh;
+}
+
+#captainImg {
+    width: 10vh;
+}
+
+#selectionContainer {
+    display: flex;
 }
 
 #showTeamsButton {
@@ -36,12 +77,12 @@ body {
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #f9faff;
+    color: black;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 2vh 0;
 }
 
 button:hover {
@@ -60,7 +101,7 @@ button:hover {
 
 #eastSelection {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
@@ -68,7 +109,7 @@ button:hover {
 
 #westSelection {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     flex-direction: row;
