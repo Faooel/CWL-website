@@ -15,11 +15,28 @@ body {
 }
 
 #navbBar {
+    cursor: pointer;
+}
+
+.line1, .line2, .line3 {
     width: 35px;
     height: 5px;
     background-color: black;
-    margin: 6px 0;
-    margin-left: 1vw;
+    margin: 6px 0 6px 1vw;
+    transition: 0.4s;
+}
+
+/* Rotate first bar */
+.change .line1 {
+    transform: translate(0, 11px) rotate(-45deg);
+}
+
+/* Fade out the second bar */
+.change .line2 {opacity: 0;}
+
+/* Rotate last bar */
+.change .line3 {
+    transform: translate(0, -11px) rotate(45deg);
 }
 
 #logo {
